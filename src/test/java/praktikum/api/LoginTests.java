@@ -1,16 +1,21 @@
 package praktikum.api;
 
+import io.qameta.allure.*;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
-
+@Epic("Авторизация")
+@Feature("Логин пользователя")
 public class LoginTests extends BaseApiTest {
 
     @Test
-    @DisplayName("Логин с неверными данными")
+    @Story("Логин с некорректными данными")
+    @Severity(SeverityLevel.NORMAL)
+    @DisplayName("Логин с неверным паролем")
+    @Description("Проверяем, что система возвращает ошибку при попытке логина с неправильными учетными данными")
     public void loginWithWrongPassword() {
         String body = "{ \"email\": \"wrong@mail.ru\", \"password\": \"wrongpass\" }";
 
