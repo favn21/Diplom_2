@@ -1,0 +1,133 @@
+{
+  "uid" : "ab17fc5a4eb3bca4b216b548c7f9fcbc",
+  "name" : "timeline",
+  "children" : [ {
+    "name" : "DESKTOP-VPNP6OM",
+    "children" : [ {
+      "name" : "10452@DESKTOP-VPNP6OM.main(1)",
+      "children" : [ {
+        "name" : "Создание пользователя без email",
+        "uid" : "444a619ab7ebea18",
+        "parentUid" : "8963e7f8a122cb29e76050287ce46888",
+        "status" : "passed",
+        "time" : {
+          "start" : 1759241398577,
+          "stop" : 1759241399190,
+          "duration" : 613
+        },
+        "flaky" : false,
+        "parameters" : [ ]
+      }, {
+        "name" : "Создание заказа с авторизованным пользователем",
+        "uid" : "6d930872d2b0c29c",
+        "parentUid" : "8963e7f8a122cb29e76050287ce46888",
+        "status" : "passed",
+        "time" : {
+          "start" : 1759241385902,
+          "stop" : 1759241389958,
+          "duration" : 4056
+        },
+        "flaky" : false,
+        "parameters" : [ ]
+      }, {
+        "name" : "Создание уникального пользователя",
+        "uid" : "dbadef85e2824836",
+        "parentUid" : "8963e7f8a122cb29e76050287ce46888",
+        "status" : "passed",
+        "time" : {
+          "start" : 1759241396124,
+          "stop" : 1759241396936,
+          "duration" : 812
+        },
+        "flaky" : false,
+        "parameters" : [ ]
+      }, {
+        "name" : "Создание заказа без токена доступа",
+        "uid" : "9d31d56b2a74fa94",
+        "parentUid" : "8963e7f8a122cb29e76050287ce46888",
+        "status" : "passed",
+        "time" : {
+          "start" : 1759241389961,
+          "stop" : 1759241390684,
+          "duration" : 723
+        },
+        "flaky" : false,
+        "parameters" : [ ]
+      }, {
+        "name" : "Успешное создание заказа с ингредиентами",
+        "uid" : "8887996bd0800c62",
+        "parentUid" : "8963e7f8a122cb29e76050287ce46888",
+        "status" : "passed",
+        "time" : {
+          "start" : 1759241391404,
+          "stop" : 1759241395407,
+          "duration" : 4003
+        },
+        "flaky" : false,
+        "parameters" : [ ]
+      }, {
+        "name" : "Логин с неверным паролем",
+        "uid" : "fc8e4527b6bea399",
+        "parentUid" : "8963e7f8a122cb29e76050287ce46888",
+        "status" : "passed",
+        "time" : {
+          "start" : 1759241382002,
+          "stop" : 1759241384006,
+          "duration" : 2004
+        },
+        "flaky" : false,
+        "parameters" : [ ]
+      }, {
+        "name" : "Успешный логин под существующим пользователем",
+        "uid" : "3762fe74374dc0d6",
+        "parentUid" : "8963e7f8a122cb29e76050287ce46888",
+        "status" : "passed",
+        "time" : {
+          "start" : 1759241384065,
+          "stop" : 1759241385895,
+          "duration" : 1830
+        },
+        "flaky" : false,
+        "parameters" : [ ]
+      }, {
+        "name" : "Создание пользователя, который уже зарегистрирован",
+        "uid" : "f27e7bed5efaaab3",
+        "parentUid" : "8963e7f8a122cb29e76050287ce46888",
+        "status" : "passed",
+        "time" : {
+          "start" : 1759241396939,
+          "stop" : 1759241398575,
+          "duration" : 1636
+        },
+        "flaky" : false,
+        "parameters" : [ ]
+      }, {
+        "name" : "Создание заказа без ингредиентов",
+        "uid" : "8e4fe2505a4e66ae",
+        "parentUid" : "8963e7f8a122cb29e76050287ce46888",
+        "status" : "passed",
+        "time" : {
+          "start" : 1759241395410,
+          "stop" : 1759241396121,
+          "duration" : 711
+        },
+        "flaky" : false,
+        "parameters" : [ ]
+      }, {
+        "name" : "Создание заказа с неверным хешем ингредиентов",
+        "uid" : "67ba64b291c1798e",
+        "parentUid" : "8963e7f8a122cb29e76050287ce46888",
+        "status" : "passed",
+        "time" : {
+          "start" : 1759241390686,
+          "stop" : 1759241391402,
+          "duration" : 716
+        },
+        "flaky" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "8963e7f8a122cb29e76050287ce46888"
+    } ],
+    "uid" : "a59cc20161629be30bc127b70f515165"
+  } ]
+}

@@ -1,0 +1,101 @@
+[ {
+  "uid" : "444a619ab7ebea18",
+  "name" : "Создание пользователя без email",
+  "time" : {
+    "start" : 1759241398577,
+    "stop" : 1759241399190,
+    "duration" : 613
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "6d930872d2b0c29c",
+  "name" : "Создание заказа с авторизованным пользователем",
+  "time" : {
+    "start" : 1759241385902,
+    "stop" : 1759241389958,
+    "duration" : 4056
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "dbadef85e2824836",
+  "name" : "Создание уникального пользователя",
+  "time" : {
+    "start" : 1759241396124,
+    "stop" : 1759241396936,
+    "duration" : 812
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "9d31d56b2a74fa94",
+  "name" : "Создание заказа без токена доступа",
+  "time" : {
+    "start" : 1759241389961,
+    "stop" : 1759241390684,
+    "duration" : 723
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "8887996bd0800c62",
+  "name" : "Успешное создание заказа с ингредиентами",
+  "time" : {
+    "start" : 1759241391404,
+    "stop" : 1759241395407,
+    "duration" : 4003
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "fc8e4527b6bea399",
+  "name" : "Логин с неверным паролем",
+  "time" : {
+    "start" : 1759241382002,
+    "stop" : 1759241384006,
+    "duration" : 2004
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "3762fe74374dc0d6",
+  "name" : "Успешный логин под существующим пользователем",
+  "time" : {
+    "start" : 1759241384065,
+    "stop" : 1759241385895,
+    "duration" : 1830
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "f27e7bed5efaaab3",
+  "name" : "Создание пользователя, который уже зарегистрирован",
+  "time" : {
+    "start" : 1759241396939,
+    "stop" : 1759241398575,
+    "duration" : 1636
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "8e4fe2505a4e66ae",
+  "name" : "Создание заказа без ингредиентов",
+  "time" : {
+    "start" : 1759241395410,
+    "stop" : 1759241396121,
+    "duration" : 711
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "67ba64b291c1798e",
+  "name" : "Создание заказа с неверным хешем ингредиентов",
+  "time" : {
+    "start" : 1759241390686,
+    "stop" : 1759241391402,
+    "duration" : 716
+  },
+  "status" : "passed",
+  "severity" : "normal"
+} ]

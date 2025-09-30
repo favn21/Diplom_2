@@ -1,0 +1,61 @@
+{
+  "uid" : "3762fe74374dc0d6",
+  "name" : "Успешный логин под существующим пользователем",
+  "fullName" : "praktikum.api.LoginTests.loginWithValidUser",
+  "historyId" : "c2baaf70651b1b5ab2ef4ed51e2b7700",
+  "time" : {
+    "start" : 1759241384065,
+    "stop" : 1759241385895,
+    "duration" : 1830
+  },
+  "status" : "passed",
+  "flaky" : false,
+  "beforeStages" : [ ],
+  "afterStages" : [ ],
+  "labels" : [ {
+    "name" : "package",
+    "value" : "praktikum.api"
+  }, {
+    "name" : "testClass",
+    "value" : "praktikum.api.LoginTests"
+  }, {
+    "name" : "testMethod",
+    "value" : "loginWithValidUser"
+  }, {
+    "name" : "suite",
+    "value" : "praktikum.api.LoginTests"
+  }, {
+    "name" : "host",
+    "value" : "DESKTOP-VPNP6OM"
+  }, {
+    "name" : "thread",
+    "value" : "10452@DESKTOP-VPNP6OM.main(1)"
+  }, {
+    "name" : "framework",
+    "value" : "junit4"
+  }, {
+    "name" : "language",
+    "value" : "java"
+  }, {
+    "name" : "epic",
+    "value" : "Авторизация"
+  }, {
+    "name" : "feature",
+    "value" : "Логин пользователя"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "3762fe74374dc0d6.json",
+  "parameterValues" : [ ]
+}

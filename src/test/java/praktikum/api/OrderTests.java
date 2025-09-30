@@ -1,15 +1,21 @@
 package praktikum.api;
 
+import io.qameta.allure.*;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
+@Epic("Заказы")
+@Feature("Создание заказа")
 public class OrderTests extends BaseApiTest {
 
     @Test
+    @Story("Ошибка при отсутствии ингредиентов")
+    @Severity(SeverityLevel.NORMAL)
     @DisplayName("Создание заказа без ингредиентов")
+    @Description("Проверяем, что API возвращает ошибку при попытке создать заказ без указания ингредиентов")
     public void createOrderWithoutIngredients() {
         String body = "{ \"ingredients\": [] }";
 
@@ -23,7 +29,10 @@ public class OrderTests extends BaseApiTest {
     }
 
     @Test
-    @DisplayName("Создание заказа с авторизацией")
+    @Story("Создание заказа с авторизацией")
+    @Severity(SeverityLevel.CRITICAL)
+    @DisplayName("Создание заказа с авторизованным пользователем")
+    @Description("Регистрируем пользователя, авторизуемся и создаем заказ с ингредиентами")
     public void createOrderWithAuth() {
 
         String email = "user" + System.currentTimeMillis() + "@mail.ru";
@@ -58,7 +67,11 @@ public class OrderTests extends BaseApiTest {
     }
 
 
-    @Test @DisplayName("Создание заказа без авторизации")
+    @Test
+    @Story("Создание заказа без авторизации")
+    @Severity(SeverityLevel.MINOR)
+    @DisplayName("Создание заказа без токена доступа")
+    @Description("Проверяем, что API не позволяет создавать заказ без авторизации")
     public void createOrderWithoutAuth() {
         given()
                 .header("Content-type", "application/json")
@@ -70,7 +83,10 @@ public class OrderTests extends BaseApiTest {
 
 
     @Test
+    @Story("Ошибка при неверном ингредиенте")
+    @Severity(SeverityLevel.CRITICAL)
     @DisplayName("Создание заказа с неверным хешем ингредиентов")
+    @Description("Проверяем, что при передаче некорректного идентификатора ингредиента возвращается ошибка 500")
     public void createOrderWithInvalidIngredient() {
         String ingredientsBody = "{ \"ingredients\": [\"invalidhash\"] }";
 
@@ -84,7 +100,10 @@ public class OrderTests extends BaseApiTest {
 
 
     @Test
-    @DisplayName("Создание заказа с ингредиентами и авторизацией")
+    @Story("Создание заказа с ингредиентами и авторизацией")
+    @Severity(SeverityLevel.BLOCKER)
+    @DisplayName("Успешное создание заказа с ингредиентами")
+    @Description("Регистрируем пользователя, авторизуемся и проверяем успешное создание заказа с валидными ингредиентами")
     public void createOrderWithIngredients() {
 
         String email = "user" + System.currentTimeMillis() + "@mail.ru";

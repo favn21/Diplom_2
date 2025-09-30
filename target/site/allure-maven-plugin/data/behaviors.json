@@ -1,0 +1,185 @@
+{
+  "uid" : "b1a8273437954620fa374b796ffaacdd",
+  "name" : "behaviors",
+  "children" : [ {
+    "name" : "Авторизация",
+    "children" : [ {
+      "name" : "Логин пользователя",
+      "children" : [ {
+        "name" : "Логин с некорректными данными",
+        "children" : [ {
+          "name" : "Логин с неверным паролем",
+          "uid" : "fc8e4527b6bea399",
+          "parentUid" : "a8a3a1e842333f518e5b2127304cd505",
+          "status" : "passed",
+          "time" : {
+            "start" : 1759241382002,
+            "stop" : 1759241384006,
+            "duration" : 2004
+          },
+          "flaky" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "a8a3a1e842333f518e5b2127304cd505"
+      }, {
+        "name" : "Успешный логин под существующим пользователем",
+        "uid" : "3762fe74374dc0d6",
+        "parentUid" : "793e070c840896060368dd5dd739a38b",
+        "status" : "passed",
+        "time" : {
+          "start" : 1759241384065,
+          "stop" : 1759241385895,
+          "duration" : 1830
+        },
+        "flaky" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "793e070c840896060368dd5dd739a38b"
+    } ],
+    "uid" : "1c9c6c8eeff4f5d0ac53e399badbc609"
+  }, {
+    "name" : "Заказы",
+    "children" : [ {
+      "name" : "Создание заказа",
+      "children" : [ {
+        "name" : "Создание заказа с авторизацией",
+        "children" : [ {
+          "name" : "Создание заказа с авторизованным пользователем",
+          "uid" : "6d930872d2b0c29c",
+          "parentUid" : "3155eef94dccfe2c509b16d7add7f84c",
+          "status" : "passed",
+          "time" : {
+            "start" : 1759241385902,
+            "stop" : 1759241389958,
+            "duration" : 4056
+          },
+          "flaky" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "3155eef94dccfe2c509b16d7add7f84c"
+      }, {
+        "name" : "Создание заказа без авторизации",
+        "children" : [ {
+          "name" : "Создание заказа без токена доступа",
+          "uid" : "9d31d56b2a74fa94",
+          "parentUid" : "463686b764a143ae8e3270c8cb82ffa3",
+          "status" : "passed",
+          "time" : {
+            "start" : 1759241389961,
+            "stop" : 1759241390684,
+            "duration" : 723
+          },
+          "flaky" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "463686b764a143ae8e3270c8cb82ffa3"
+      }, {
+        "name" : "Ошибка при неверном ингредиенте",
+        "children" : [ {
+          "name" : "Создание заказа с неверным хешем ингредиентов",
+          "uid" : "67ba64b291c1798e",
+          "parentUid" : "e31d98a1b3be174c23461cab35faca9d",
+          "status" : "passed",
+          "time" : {
+            "start" : 1759241390686,
+            "stop" : 1759241391402,
+            "duration" : 716
+          },
+          "flaky" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "e31d98a1b3be174c23461cab35faca9d"
+      }, {
+        "name" : "Создание заказа с ингредиентами и авторизацией",
+        "children" : [ {
+          "name" : "Успешное создание заказа с ингредиентами",
+          "uid" : "8887996bd0800c62",
+          "parentUid" : "601838ef76ee7295dfe6090d72afa04a",
+          "status" : "passed",
+          "time" : {
+            "start" : 1759241391404,
+            "stop" : 1759241395407,
+            "duration" : 4003
+          },
+          "flaky" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "601838ef76ee7295dfe6090d72afa04a"
+      }, {
+        "name" : "Ошибка при отсутствии ингредиентов",
+        "children" : [ {
+          "name" : "Создание заказа без ингредиентов",
+          "uid" : "8e4fe2505a4e66ae",
+          "parentUid" : "fd0966d400a0db8cc5cf23f08b588c17",
+          "status" : "passed",
+          "time" : {
+            "start" : 1759241395410,
+            "stop" : 1759241396121,
+            "duration" : 711
+          },
+          "flaky" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "fd0966d400a0db8cc5cf23f08b588c17"
+      } ],
+      "uid" : "62b06ce3aa1528d2e8606e29a90afc85"
+    } ],
+    "uid" : "7f34a8eba6669f5e03e0b0dde599a17e"
+  }, {
+    "name" : "Пользователи",
+    "children" : [ {
+      "name" : "Регистрация",
+      "children" : [ {
+        "name" : "Регистрация нового уникального пользователя",
+        "children" : [ {
+          "name" : "Создание уникального пользователя",
+          "uid" : "dbadef85e2824836",
+          "parentUid" : "0d55cdbb6a83359d5daf2e3a2b35ee51",
+          "status" : "passed",
+          "time" : {
+            "start" : 1759241396124,
+            "stop" : 1759241396936,
+            "duration" : 812
+          },
+          "flaky" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "0d55cdbb6a83359d5daf2e3a2b35ee51"
+      }, {
+        "name" : "Ошибка при регистрации уже существующего пользователя",
+        "children" : [ {
+          "name" : "Создание пользователя, который уже зарегистрирован",
+          "uid" : "f27e7bed5efaaab3",
+          "parentUid" : "9b9ad533ba298b30a3f24436fc991a58",
+          "status" : "passed",
+          "time" : {
+            "start" : 1759241396939,
+            "stop" : 1759241398575,
+            "duration" : 1636
+          },
+          "flaky" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "9b9ad533ba298b30a3f24436fc991a58"
+      }, {
+        "name" : "Ошибка при регистрации без email",
+        "children" : [ {
+          "name" : "Создание пользователя без email",
+          "uid" : "444a619ab7ebea18",
+          "parentUid" : "54f9dd13f00e1f8b2aa18e49ccb0ff5a",
+          "status" : "passed",
+          "time" : {
+            "start" : 1759241398577,
+            "stop" : 1759241399190,
+            "duration" : 613
+          },
+          "flaky" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "54f9dd13f00e1f8b2aa18e49ccb0ff5a"
+      } ],
+      "uid" : "34220959033f4b82410f1e456933b955"
+    } ],
+    "uid" : "16ec1a09d76f3d575d1f5da75bac7b42"
+  } ]
+}
