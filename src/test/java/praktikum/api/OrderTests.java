@@ -2,14 +2,60 @@ package praktikum.api;
 
 import io.qameta.allure.*;
 import io.qameta.allure.junit4.DisplayName;
-import org.junit.Test;
 
-import static io.restassured.RestAssured.given;
+import net.datafaker.Faker;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import praktikum.api.client.LoginClient;
+import praktikum.api.client.OrderClient;
+import praktikum.api.client.UserClient;
+import praktikum.api.model.User;
+
+import java.util.List;
+
+import static org.apache.http.HttpStatus.*;
 import static org.hamcrest.Matchers.equalTo;
 
 @Epic("Заказы")
 @Feature("Создание заказа")
 public class OrderTests extends BaseApiTest {
+
+    private final LoginClient loginClient = new LoginClient();
+    private final OrderClient orderClient = new OrderClient();
+    private final Faker faker = new Faker();
+    private String email;
+    private String password;
+    private String name;
+    private String accessToken;
+
+    @Before
+    public void setUpExistingUser() {
+        email = "existing" + System.currentTimeMillis() + "@mail.ru";
+        password = "123456";
+        name = "TestUser";
+
+        User user = new User(email, password, name);
+
+        accessToken = new UserClient().registerUser(user)
+                .statusCode(SC_OK)
+                .body("success", equalTo(true))
+                .extract()
+                .path("accessToken");
+
+        if (!accessToken.startsWith("Bearer ")) {
+            accessToken = "Bearer " + accessToken;
+        }
+    }
+
+
+    @After
+    public void tearDown() {
+        if (accessToken != null) {
+            loginClient.deleteUser(accessToken)
+                    .statusCode(SC_ACCEPTED);
+        }
+    }
 
     @Test
     @Story("Ошибка при отсутствии ингредиентов")
@@ -17,14 +63,8 @@ public class OrderTests extends BaseApiTest {
     @DisplayName("Создание заказа без ингредиентов")
     @Description("Проверяем, что API возвращает ошибку при попытке создать заказ без указания ингредиентов")
     public void createOrderWithoutIngredients() {
-        String body = "{ \"ingredients\": [] }";
-
-        given()
-                .header("Content-type", "application/json")
-                .body(body)
-                .post("/orders")
-                .then()
-                .statusCode(400)
+        orderClient.createOrderWithoutAuth(List.of())
+                .statusCode(SC_BAD_REQUEST)
                 .body("message", equalTo("Ingredient ids must be provided"));
     }
 
@@ -34,38 +74,14 @@ public class OrderTests extends BaseApiTest {
     @DisplayName("Создание заказа с авторизованным пользователем")
     @Description("Регистрируем пользователя, авторизуемся и создаем заказ с ингредиентами")
     public void createOrderWithAuth() {
-
-        String email = "user" + System.currentTimeMillis() + "@mail.ru";
-        String password = "123456";
-        String name = "TestUser";
-
-        String accessToken =
-                given()
-                        .header("Content-type", "application/json")
-                        .body("{\"email\":\"" + email + "\", \"password\":\"" + password + "\", \"name\":\"" + name + "\"}")
-                        .post("/auth/register")
-                        .then()
-                        .statusCode(200)
-                        .extract()
-                        .path("accessToken");
-
-        if (!accessToken.startsWith("Bearer ")) {
-            accessToken = "Bearer " + accessToken;
-        }
-
-
-        String ingredientsBody = "{ \"ingredients\": [\"61c0c5a71d1f82001bdaaa6d\", \"61c0c5a71d1f82001bdaaa6f\", \"61c0c5a71d1f82001bdaaa72\"] }";
-
-        given()
-                .header("Content-type", "application/json")
-                .header("Authorization", accessToken)
-                .body(ingredientsBody)
-                .post("/orders")
-                .then()
-                .statusCode(200)
+        orderClient.createOrder(accessToken, List.of(
+                        "61c0c5a71d1f82001bdaaa6d",
+                        "61c0c5a71d1f82001bdaaa6f",
+                        "61c0c5a71d1f82001bdaaa72"
+                ))
+                .statusCode(SC_OK)
                 .body("success", equalTo(true));
     }
-
 
     @Test
     @Story("Создание заказа без авторизации")
@@ -73,14 +89,9 @@ public class OrderTests extends BaseApiTest {
     @DisplayName("Создание заказа без токена доступа")
     @Description("Проверяем, что API не позволяет создавать заказ без авторизации")
     public void createOrderWithoutAuth() {
-        given()
-                .header("Content-type", "application/json")
-                .body("{\"ingredients\": [\"60d3b41abdacab0026a733c6\"]}")
-                .post("/orders")
-                .then()
-                .statusCode(400);
+        orderClient.createOrderWithoutAuth(List.of("60d3b41abdacab0026a733c6"))
+                .statusCode(SC_BAD_REQUEST);
     }
-
 
     @Test
     @Story("Ошибка при неверном ингредиенте")
@@ -88,16 +99,9 @@ public class OrderTests extends BaseApiTest {
     @DisplayName("Создание заказа с неверным хешем ингредиентов")
     @Description("Проверяем, что при передаче некорректного идентификатора ингредиента возвращается ошибка 500")
     public void createOrderWithInvalidIngredient() {
-        String ingredientsBody = "{ \"ingredients\": [\"invalidhash\"] }";
-
-        given()
-                .header("Content-type", "application/json")
-                .body(ingredientsBody)
-                .post("/orders")
-                .then()
-                .statusCode(500);
+        orderClient.createOrderWithoutAuth(List.of("invalidhash"))
+                .statusCode(SC_INTERNAL_SERVER_ERROR);
     }
-
 
     @Test
     @Story("Создание заказа с ингредиентами и авторизацией")
@@ -105,34 +109,12 @@ public class OrderTests extends BaseApiTest {
     @DisplayName("Успешное создание заказа с ингредиентами")
     @Description("Регистрируем пользователя, авторизуемся и проверяем успешное создание заказа с валидными ингредиентами")
     public void createOrderWithIngredients() {
-
-        String email = "user" + System.currentTimeMillis() + "@mail.ru";
-        String password = "123456";
-        String name = "TestUser";
-
-        String accessToken =
-                given()
-                        .header("Content-type", "application/json")
-                        .body("{\"email\":\"" + email + "\", \"password\":\"" + password + "\", \"name\":\"" + name + "\"}")
-                        .post("/auth/register")
-                        .then()
-                        .statusCode(200)
-                        .extract()
-                        .path("accessToken");
-
-        if (!accessToken.startsWith("Bearer ")) {
-            accessToken = "Bearer " + accessToken;
-        }
-
-        String ingredientsBody = "{ \"ingredients\": [\"61c0c5a71d1f82001bdaaa6d\", \"61c0c5a71d1f82001bdaaa6f\", \"61c0c5a71d1f82001bdaaa72\"] }";
-
-        given()
-                .header("Content-type", "application/json")
-                .header("Authorization", accessToken)
-                .body(ingredientsBody)
-                .post("/orders")
-                .then()
-                .statusCode(200)
+        orderClient.createOrder(accessToken, List.of(
+                        "61c0c5a71d1f82001bdaaa6d",
+                        "61c0c5a71d1f82001bdaaa6f",
+                        "61c0c5a71d1f82001bdaaa72"
+                ))
+                .statusCode(SC_OK)
                 .body("success", equalTo(true));
     }
 }
