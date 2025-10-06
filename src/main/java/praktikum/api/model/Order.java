@@ -4,13 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
-    private String email;
-    private String password;
-    private String name;
+public class Order {
+    private List<String> ingredients;
 }
 
 

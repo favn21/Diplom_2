@@ -2,26 +2,23 @@ package praktikum.api.client;
 
 import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
-import praktikum.api.client.Endpoints;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static io.restassured.RestAssured.given;
+
+
+import praktikum.api.model.Login;
+import praktikum.api.model.User;
 
 
 public class LoginClient {
 
     @Step("Регистрируем пользователя: {email}")
     public ValidatableResponse registerUser(String email, String password, String name) {
-        Map<String, String> body = new HashMap<>();
-        body.put("email", email);
-        body.put("password", password);
-        body.put("name", name);
+        User user = new User(email, password, name);
 
         return given()
                 .header("Content-type", "application/json")
-                .body(body)
+                .body(user)
                 .when()
                 .post(Endpoints.REGISTER)
                 .then();
@@ -29,13 +26,11 @@ public class LoginClient {
 
     @Step("Логинимся под пользователем: {email}")
     public ValidatableResponse loginUser(String email, String password) {
-        Map<String, String> body = new HashMap<>();
-        body.put("email", email);
-        body.put("password", password);
+        Login login = new Login(email, password);
 
         return given()
                 .header("Content-type", "application/json")
-                .body(body)
+                .body(login)
                 .when()
                 .post(Endpoints.LOGIN)
                 .then();

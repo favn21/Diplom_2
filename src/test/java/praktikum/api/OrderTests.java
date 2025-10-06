@@ -2,7 +2,6 @@ package praktikum.api;
 
 import io.qameta.allure.*;
 import io.qameta.allure.junit4.DisplayName;
-
 import net.datafaker.Faker;
 import org.junit.After;
 import org.junit.Before;
@@ -10,6 +9,7 @@ import org.junit.Test;
 import praktikum.api.client.LoginClient;
 import praktikum.api.client.OrderClient;
 import praktikum.api.client.UserClient;
+import praktikum.api.model.Order;
 import praktikum.api.model.User;
 
 import java.util.List;
@@ -23,7 +23,9 @@ public class OrderTests extends BaseApiTest {
 
     private final LoginClient loginClient = new LoginClient();
     private final OrderClient orderClient = new OrderClient();
+    private final UserClient userClient = new UserClient();
     private final Faker faker = new Faker();
+
     private String email;
     private String password;
     private String name;
@@ -37,7 +39,7 @@ public class OrderTests extends BaseApiTest {
 
         User user = new User(email, password, name);
 
-        accessToken = new UserClient().registerUser(user)
+        accessToken = userClient.registerUser(user)
                 .statusCode(SC_OK)
                 .body("success", equalTo(true))
                 .extract()
@@ -63,7 +65,8 @@ public class OrderTests extends BaseApiTest {
     @DisplayName("Создание заказа без ингредиентов")
     @Description("Проверяем, что API возвращает ошибку при попытке создать заказ без указания ингредиентов")
     public void createOrderWithoutIngredients() {
-        orderClient.createOrderWithoutAuth(List.of())
+        Order emptyOrder = new Order(List.of());
+        orderClient.createOrderWithoutAuth(emptyOrder)
                 .statusCode(SC_BAD_REQUEST)
                 .body("message", equalTo("Ingredient ids must be provided"));
     }
@@ -74,11 +77,13 @@ public class OrderTests extends BaseApiTest {
     @DisplayName("Создание заказа с авторизованным пользователем")
     @Description("Регистрируем пользователя, авторизуемся и создаем заказ с ингредиентами")
     public void createOrderWithAuth() {
-        orderClient.createOrder(accessToken, List.of(
-                        "61c0c5a71d1f82001bdaaa6d",
-                        "61c0c5a71d1f82001bdaaa6f",
-                        "61c0c5a71d1f82001bdaaa72"
-                ))
+        Order order = new Order(List.of(
+                "61c0c5a71d1f82001bdaaa6d",
+                "61c0c5a71d1f82001bdaaa6f",
+                "61c0c5a71d1f82001bdaaa72"
+        ));
+
+        orderClient.createOrder(accessToken, order)
                 .statusCode(SC_OK)
                 .body("success", equalTo(true));
     }
@@ -89,7 +94,9 @@ public class OrderTests extends BaseApiTest {
     @DisplayName("Создание заказа без токена доступа")
     @Description("Проверяем, что API не позволяет создавать заказ без авторизации")
     public void createOrderWithoutAuth() {
-        orderClient.createOrderWithoutAuth(List.of("60d3b41abdacab0026a733c6"))
+        Order order = new Order(List.of("60d3b41abdacab0026a733c6"));
+
+        orderClient.createOrderWithoutAuth(order)
                 .statusCode(SC_BAD_REQUEST);
     }
 
@@ -99,7 +106,9 @@ public class OrderTests extends BaseApiTest {
     @DisplayName("Создание заказа с неверным хешем ингредиентов")
     @Description("Проверяем, что при передаче некорректного идентификатора ингредиента возвращается ошибка 500")
     public void createOrderWithInvalidIngredient() {
-        orderClient.createOrderWithoutAuth(List.of("invalidhash"))
+        Order invalidOrder = new Order(List.of("invalidhash"));
+
+        orderClient.createOrderWithoutAuth(invalidOrder)
                 .statusCode(SC_INTERNAL_SERVER_ERROR);
     }
 
@@ -109,11 +118,13 @@ public class OrderTests extends BaseApiTest {
     @DisplayName("Успешное создание заказа с ингредиентами")
     @Description("Регистрируем пользователя, авторизуемся и проверяем успешное создание заказа с валидными ингредиентами")
     public void createOrderWithIngredients() {
-        orderClient.createOrder(accessToken, List.of(
-                        "61c0c5a71d1f82001bdaaa6d",
-                        "61c0c5a71d1f82001bdaaa6f",
-                        "61c0c5a71d1f82001bdaaa72"
-                ))
+        Order order = new Order(List.of(
+                "61c0c5a71d1f82001bdaaa6d",
+                "61c0c5a71d1f82001bdaaa6f",
+                "61c0c5a71d1f82001bdaaa72"
+        ));
+
+        orderClient.createOrder(accessToken, order)
                 .statusCode(SC_OK)
                 .body("success", equalTo(true));
     }
